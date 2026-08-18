@@ -119,6 +119,13 @@ module.exports = async (req,res)=>{
       return json(res,201,q[0]);
     }
 
+
+
+// BARU/NEW CODE CODING
+    if(req.method==='GET')return json(res,200,await sql`SELECT id,tanggal,jenis,kategori,nominal,keterangan FROM transaksi WHERE user_id=${u.id} ORDER BY tanggal DESC,id DESC`);
+    
+    
+    
     if(a==='edit'&&req.method==='POST'){
       const {id,tanggal,jenis,kategori,nominal,keterangan=''}=req.body||{};
       const n=Number(nominal),ket=String(keterangan||'').trim();
