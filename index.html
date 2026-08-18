@@ -67,7 +67,33 @@ body{background:#f4f6f9;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}.c
 <div class="row g-4 mb-4"><div class="col-md-6"><div class="card card-stat p-3 h-100"><h5>🔍 Filter Transaksi</h5><div class="row g-2">
 <div class="col-6"><label class="small text-muted">Periode</label><select id="filterPeriode" class="form-select form-select-sm" onchange="periode()"><option value="semua">Semua Waktu</option><option value="bulan_ini">Bulan Ini</option><option value="tahun_ini">Tahun Ini</option><option value="rentang">Rentang Tanggal</option></select></div>
 <div class="col-6"><label class="small text-muted">Jenis</label><select id="filterJenis" class="form-select form-select-sm" onchange="resetPage()"><option value="semua">Semua</option><option value="pemasukan">Pemasukan</option><option value="pengeluaran">Pengeluaran</option></select></div>
-<div class="col-6"><label class="small text-muted">Kategori</label><select id="filterKategori" class="form-select form-select-sm category-multi" multiple onchange="resetPage()"></select><small class="text-muted">Ctrl/Cmd + klik untuk memilih beberapa kategori</small></div>
+<!-- <div class="col-6"><label class="small text-muted">Kategori</label><select id="filterKategori" class="form-select form-select-sm category-multi" multiple onchange="resetPage()"></div> -->
+  <!-- </select><small class="text-muted">Ctrl/Cmd + klik untuk memilih beberapa kategori</small> -->
+
+
+
+ <div class="col-6">
+    <div class="d-flex justify-content-between align-items-center">
+        <label class="small text-muted mb-1">Kategori</label>
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary py-0 px-2"
+                onclick="resetCategoryFilter()">
+            Semua Kategori
+        </button>
+    </div>
+
+    <select id="filterKategori"
+            class="form-select form-select-sm category-multi"
+            multiple
+            onchange="resetPage()"></select>
+
+    <small class="text-muted">
+        Bisa memilih beberapa kategori. Klik "Semua Kategori" untuk membatalkan filter.
+    </small>
+</div> 
+
+
+  
 <div class="col-12"><label class="small text-muted">Cari Transaksi</label><input id="search" type="search" class="form-control form-control-sm" placeholder="Cari kategori atau keterangan..." oninput="resetPage()"></div><div class="col-6"></div><div id="boxStart" class="col-6 d-none"><label class="small text-muted">Tanggal Mulai</label><input id="start" type="date" class="form-control form-control-sm" onchange="resetPage()"></div>
 <div id="boxEnd" class="col-6 d-none"><label class="small text-muted">Tanggal Selesai</label><input id="end" type="date" class="form-control form-control-sm" onchange="resetPage()"></div>
 </div></div></div>
