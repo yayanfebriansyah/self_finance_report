@@ -143,22 +143,35 @@ function resetSort(){sortKey='tanggal';sortDir='desc';page=1;render()}
 
 
 
-function resetSemuaFilter() {
-    // Reset filter waktu
-    // document.getElementById('filterPeriode').value = 'semua';
+// function resetSemuaFilter() {
+//     // Reset filter waktu
+//     // document.getElementById('filterPeriode').value = 'semua';
 
-    // Reset kategori
-    document.getElementById('filterKategori').value = 'semua';
+//     // Reset kategori
+//     document.getElementById('filterKategori').value = 'semua';
 
-    // // Reset tanggal mulai dan selesai
-    // document.getElementById('filterTglMulai').value = '';
-    // document.getElementById('filterTglSelesai').value = '';
+//     // // Reset tanggal mulai dan selesai
+//     // document.getElementById('filterTglMulai').value = '';
+//     // document.getElementById('filterTglSelesai').value = '';
 
-    // // Sembunyikan input rentang tanggal
-    // document.getElementById('boxTglMulai').classList.add('d-none');
-    // document.getElementById('boxTglSelesai').classList.add('d-none');
+//     // // Sembunyikan input rentang tanggal
+//     // document.getElementById('boxTglMulai').classList.add('d-none');
+//     // document.getElementById('boxTglSelesai').classList.add('d-none');
 
-    // Tampilkan kembali semua transaksi
+//     // Tampilkan kembali semua transaksi
+//     perbaruiTampilan();
+// }
+
+function resetCategoryFilter() {
+    // Batalkan semua pilihan kategori
+    [...filterKategori.options].forEach(option => {
+        option.selected = false;
+    });
+
+    // Kembali ke halaman pertama
+    resetPage();
+
+    // Refresh tampilan
     perbaruiTampilan();
 }
 
