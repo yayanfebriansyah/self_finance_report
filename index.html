@@ -140,6 +140,30 @@ function filtered(){const p=filterPeriode.value,j=filterJenis.value,ks=[...filte
 function sortedRows(rows){return rows.slice().sort((a,b)=>{let av=a[sortKey],bv=b[sortKey];if(sortKey==='tanggal'){av=String(av).split('T')[0];bv=String(bv).split('T')[0]}if(sortKey==='nominal'){av=Number(av)||0;bv=Number(bv)||0}else{av=String(av||'').toLowerCase();bv=String(bv||'').toLowerCase()}let c=av>bv?1:av<bv?-1:0;if(c===0&&sortKey!=='tanggal')c=String(a.tanggal).localeCompare(String(b.tanggal));return sortDir==='asc'?c:-c})}
 function sortBy(key){if(sortKey===key)sortDir=sortDir==='asc'?'desc':'asc';else{sortKey=key;sortDir=key==='tanggal'?'desc':'asc'}page=1;render()}
 function resetSort(){sortKey='tanggal';sortDir='desc';page=1;render()}
+
+
+
+function resetSemuaFilter() {
+    // Reset filter waktu
+    // document.getElementById('filterPeriode').value = 'semua';
+
+    // Reset kategori
+    document.getElementById('filterKategori').value = 'semua';
+
+    // // Reset tanggal mulai dan selesai
+    // document.getElementById('filterTglMulai').value = '';
+    // document.getElementById('filterTglSelesai').value = '';
+
+    // // Sembunyikan input rentang tanggal
+    // document.getElementById('boxTglMulai').classList.add('d-none');
+    // document.getElementById('boxTglSelesai').classList.add('d-none');
+
+    // Tampilkan kembali semua transaksi
+    perbaruiTampilan();
+}
+
+  
+  
 function updateSortIndicators(){['tanggal','kategori','nominal'].forEach(k=>{const e=document.getElementById('sort-'+k);e.textContent=sortKey===k?(sortDir==='asc'?'▲':'▼'):''})}
 function render(){const all=filtered(),rows=sortedRows(all).slice((page-1)*SIZE,page*SIZE);tbody.innerHTML=rows.length?'':'<tr><td colspan="4" class="text-center text-muted py-4"><div class="fw-semibold mb-1">Belum ada transaksi.</div><small>Tidak ada transaksi yang sesuai dengan filter atau pencarian saat ini.</small></td></tr>';rows.forEach(x=>{const inc=x.jenis==='pemasukan',ket=x.keterangan?`<div class="small text-muted mt-1">${safe(x.keterangan)}</div>`:'<div class="small text-muted mt-1">—</div>',tr=document.createElement('tr');tr.innerHTML=`<td class="small text-muted">${String(x.tanggal).split('T')[0]}</td><td><span class="badge ${inc?'badge-income':'badge-expense'} me-1">${inc?'In':'Out'}</span><strong>${safe(x.kategori)}</strong>${ket}</td><td class="${inc?'text-success':'text-danger'} fw-semibold">${inc?'+':'-'} ${rupiah(x.nominal)}</td><td><button class="btn btn-sm btn-link text-primary p-0 me-2" onclick="editTx(${x.id})">Edit</button><button class="btn btn-sm btn-link text-danger p-0" onclick="del(${x.id})">Hapus</button></td>`;tbody.appendChild(tr)});let inc=0,exp=0;all.forEach(x=>{let n=+x.nominal||0;if(x.jenis==='pemasukan')inc+=n;else exp+=n});totalPemasukan.textContent=rupiah(inc);totalPengeluaran.textContent=rupiah(exp);totalSaldo.textContent=rupiah(inc-exp);pagination(all.length);updateSortIndicators();drawChart(all.filter(x=>x.jenis===chartJenis.value))}
 function safe(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
